@@ -1,17 +1,17 @@
 const mongoose = require('mongoose')
 const moment = require('moment')
 
-mongoose.connect('mongodb://localhost/dengue', {useNewUrlParser: true}, async (err) => {
+mongoose.connect('mongodb://localhost/dengue_2018', {useNewUrlParser: true}, async (err) => {
     if (err) console.log('shit happens')
     else {
         const db = mongoose.connection
-        const dengue_novo = db.collection('dengue_novo')
+        const dengue_novo = db.collection('dengue_2018')
         const result = await dengue_novo.find()
         let i = 0
         result.on('data', doc => {
-            // transformDates(i++, dengue_novo, doc)
-            // computeBirthday(i++, dengue_novo, doc)
-            computeClass(i, dengue_novo, doc)
+            transformDates(i, dengue_novo, doc)
+            computeBirthday(i, dengue_novo, doc)
+            // computeClass(i, dengue_novo, doc)
             i++;
         })
         result.on('end', () => console.log('query finished'))
